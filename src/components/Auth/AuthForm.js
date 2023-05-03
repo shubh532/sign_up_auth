@@ -42,13 +42,48 @@ const AuthForm = () => {
 
       }
     }
+  }
+  const LoginHandler = async (event) => {
+    event.preventDefault();
+    SetSendRequest(true)
+    const enteredEmail = emailInputRef.current.value
+    const enteredPassword = passwordInputRef.current.value
 
+    if (!isLogin) {
+
+    } else {
+      const Response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB-Bn5PjUAaplAicPOLXy7tw2aCnLfXqZc", {
+        method: "POST",
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredPassword,
+          returnSecreToken: true
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      
+
+      if (Response.ok) {
+        alert("You Are Successfully Login")
+        const SuccessResponse=await Response.json()
+        console.log(SuccessResponse.idToken)
+        SetSendRequest(false)
+        
+      } else {
+        const ErrorRespnse = await Response.json()
+        alert("Authentication Failled")
+        SetSendRequest(false)
+
+      }
+    }
   }
 
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <form onSubmit={submitHandler} >
+      <form onSubmit={isLogin?LoginHandler:submitHandler}>
         <div className={classes.control}>
           <label htmlFor='email'>Your Email</label>
           <input type='email' id='email' required ref={emailInputRef} />
