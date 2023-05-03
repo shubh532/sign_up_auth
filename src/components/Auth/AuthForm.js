@@ -72,7 +72,7 @@ const AuthForm = () => {
 
       if (Response.ok) {
         const SuccessResponse=await Response.json()
-        TokenID.StoreTokenId(SuccessResponse.idToken)
+        TokenID.LoggInHandler(SuccessResponse.idToken)
         history.replace("/")
         SetSendRequest(false)
         

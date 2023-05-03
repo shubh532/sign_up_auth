@@ -2,19 +2,24 @@ import { useState } from "react";
 import Token from "./TokenApi";
 
 export default function TokenProvider(props){
-    const [tokenID,setTokenId]=useState(null)
 
-    function StoreTokenId(id){
+
+    const ID=localStorage.getItem("TokenId")
+    const [tokenID,setTokenId]=useState(ID)
+
+    function LoggInHandler(id){
+        localStorage.setItem("TokenId",id)
         setTokenId(id)
     }
-    function DeleteTokenId(id){
+    function LogOutHandler(){
         setTokenId(null)
+        localStorage.removeItem("TokenId")
     }
 
     const defaultValues={
         token:tokenID,
-        StoreTokenId:StoreTokenId,
-        DeleteTokenId:DeleteTokenId
+        LoggInHandler:LoggInHandler,
+        LogOutHandler:LogOutHandler
     }
     return(
         <Token.Provider value={defaultValues}>
