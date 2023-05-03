@@ -1,4 +1,5 @@
 import classes from './ProfileForm.module.css';
+import { useHistory } from 'react-router-dom';
 import { useRef,useState } from 'react';
 import { useContext } from 'react';
 import Token from '../../ContextApi/TokenApi';
@@ -13,6 +14,7 @@ const ProfileForm = () => {
 
   const tokenId=useContext(Token)
 
+  const History=useHistory()
 
   const ResetPassWord = async (event) => {
     event.preventDefault();
@@ -33,6 +35,7 @@ const ProfileForm = () => {
 
     if (Response.ok) {
       alert("You Are Successfully Reset Password")
+      History.replace("/")
       SetSendRequest(false)
     } else {
       const ErrorRespnse = await Response.json()

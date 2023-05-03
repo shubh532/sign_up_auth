@@ -1,4 +1,5 @@
 import { useState, useRef,useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Token from '../../ContextApi/TokenApi';
 import classes from './AuthForm.module.css';
 
@@ -7,6 +8,8 @@ const AuthForm = () => {
   const [SendRequest, SetSendRequest] = useState(false)
   const emailInputRef = useRef()
   const passwordInputRef = useRef()
+
+  const history=useHistory()
 
   const TokenID=useContext(Token)
 
@@ -70,6 +73,7 @@ const AuthForm = () => {
       if (Response.ok) {
         const SuccessResponse=await Response.json()
         TokenID.StoreTokenId(SuccessResponse.idToken)
+        history.replace("/")
         SetSendRequest(false)
         
       } else {

@@ -2,12 +2,16 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import classes from './MainNavigation.module.css';
 import Token from '../../ContextApi/TokenApi';
+import { useHistory } from 'react-router-dom';
 
 const MainNavigation = () => {
   const TokenID = useContext(Token)
 
+   const history =useHistory()
+
   const LogOutHandler = () => {
     TokenID.DeleteTokenId()
+    history.replace("/auth")
   }
 
   return (
