@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-
+import { useState, useRef,useContext } from 'react';
+import Token from '../../ContextApi/TokenApi';
 import classes from './AuthForm.module.css';
 
 const AuthForm = () => {
@@ -7,6 +7,8 @@ const AuthForm = () => {
   const [SendRequest, SetSendRequest] = useState(false)
   const emailInputRef = useRef()
   const passwordInputRef = useRef()
+
+  const TokenID=useContext(Token)
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -66,9 +68,8 @@ const AuthForm = () => {
       
 
       if (Response.ok) {
-        alert("You Are Successfully Login")
         const SuccessResponse=await Response.json()
-        console.log(SuccessResponse.idToken)
+        TokenID.StoreTokenId(SuccessResponse.idToken)
         SetSendRequest(false)
         
       } else {
