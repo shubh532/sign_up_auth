@@ -26,7 +26,7 @@ const MainNavigation = () => {
 
           {TokenID.token &&
             <li>
-              <Link to='/auth'>Profile</Link>
+              <Link to='/profile'>Profile</Link>
             </li>}
 
 

@@ -73,7 +73,7 @@ const AuthForm = () => {
         SetSendRequest(false)
         
       } else {
-        const ErrorRespnse = await Response.json()
+        await Response.json()
         alert("Authentication Failled")
         SetSendRequest(false)
 
